@@ -14,6 +14,12 @@ jobs:
       - name: Checkout file
         uses: actions/checkout@v3
 
+      - name: Show current directory
+        run: pwd
+
+      - name: List files in the repo
+        run: ls -R
+
       - name: Access location
         run : cd ./1.Checkout_Action
 
