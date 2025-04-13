@@ -1,0 +1,21 @@
+name: Checkout Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  read-file:
+    runs-on: ubuntu-latest
+    name: Read text file using checkout action
+
+    steps:
+      - name: Checkout file
+        uses: actions/checkout@v3
+
+      - name: Access location
+        run : cd ./.github/workflows/1.Checkout Action
+
+      - name: Read file
+        run: cat test.txt
