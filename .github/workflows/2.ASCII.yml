@@ -1,0 +1,17 @@
+name: ASCII Art
+
+on: 
+    push:
+        branches:
+            - main
+
+jobs:
+    ascii-art:
+        runs-on: ubuntu-latest
+
+        steps: 
+            - name: Install figlet
+              run: sudo apt-get update && sudo apt-get install -y figlet
+
+            - name: Print my name in ASCII
+              run: figlet "Malinda"
