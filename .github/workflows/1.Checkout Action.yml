@@ -1,14 +1,21 @@
-name: My checkout Action
+name: Checkout Action
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  my_job:
+  read-file:
     runs-on: ubuntu-latest
+    name: Read text file using checkout action
+
     steps:
+      - name: Checkout file
+        uses: actions/checkout@v3
 
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Access location
+        run : cd ./1.Checkout_Action
 
-    - name: list Files in the Repo
-      run: ls -ltra
+      - name: Read file
+        run: cat test.txt
