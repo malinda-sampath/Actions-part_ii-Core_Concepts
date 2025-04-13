@@ -23,5 +23,8 @@ jobs:
       - name: Access location
         run : cd ./1.Checkout_Action
 
+      - name: List files in the repo
+        run: ls -R  
+
       - name: Read file
         run: cat test.txt
