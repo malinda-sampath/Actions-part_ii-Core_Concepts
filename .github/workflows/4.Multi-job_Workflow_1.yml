@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    tags:
+      - 'v*'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Linting the code..."
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running unit tests..."
+
+  build:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    outputs:
+      build-id: ${{ steps.get-id.outputs.build-id }}
+    steps:
+      - id: get-id
+        run: echo "build-id=12345" >> $GITHUB_OUTPUT
+      - run: echo "Building the app..."
+
+  package:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+           echo "Packaging with build ID: ${{ needs.build.outputs.build-id }}"
+
+  deploy-dev:
+    needs: package
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying to Dev environment..."
+
+  deploy-prod:
+    needs: package
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying to Production with tag ${{ github.ref }}"
