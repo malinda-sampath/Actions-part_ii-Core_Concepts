@@ -1,0 +1,49 @@
+name: Multi-job Example
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    greet:
+        runs-on: ubuntu-latest
+        name: Greeting Job
+
+        steps:
+            - name: Say Hello
+              run: |
+                echo "Hello from the first job!"
+                echo "This is Malinda's multi-job workflow"
+
+    system-info:
+        runs-on: ubuntu-latest
+        name: System Info Job
+        needs: greet
+
+        steps:
+            - name: Show Date and Time
+              run: date
+
+            - name: Show Disk Space
+              run: df -h
+
+            - name: Show Memory info
+              run: free -h
+
+    ascii-art:
+        runs-on: ubuntu-latest
+        name: Ascii Art Job
+        needs: system-info
+
+        steps:
+            - name: Print Malinda in ASCII
+              run: |
+                echo "Generating ASCII Art for Malinda"
+                echo ""
+                echo " __  __       _ _           _       
+                      |  \/  |     (_) |         (_)      
+                      | \  / | __ _ _| | ___  ___ _  ___  
+                      | |\/| |/ _\` | | |/ _ \/ __| |/ __| 
+                      | |  | | (_| | | |  __/\__ \ | (__  
+                      |_|  |_|\__,_|_|_|\___||___/_|\___|"
