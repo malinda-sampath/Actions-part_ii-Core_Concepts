@@ -29,9 +29,12 @@ jobs:
 
     steps:
       - name: Print Environment Variable
+        env:
+          STEP_VAR: "This is a step variable"
 
         run: |
           echo "Job Environment Variable: $MY_JOB_VAR"
           echo "Another Job Environment Variable: $ANOTHER_JOB_ENV_VAR"
           echo "Global Variable: $GLOBAL_VAR"
           echo "Another Global Variable: $ANOTHER_VAR"
+          echo "Step Variable: $STEP_VAR"
