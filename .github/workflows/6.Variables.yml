@@ -1,0 +1,21 @@
+name: Working with Variables
+
+env:
+  GLOBAL_VAR: "This is a global variable"
+  ANOTHER_VAR: "This is another global variable"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  global-var-job:
+    runs-on: ubuntu-latest
+    name: Global Variable Job
+
+    steps:
+      - name: Print Global Variable
+        run: |
+          echo "Global Variable: $GLOBAL_VAR"
+          echo "Another Global Variable: $ANOTHER_VAR"
