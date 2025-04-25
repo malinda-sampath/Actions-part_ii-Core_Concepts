@@ -28,6 +28,7 @@ jobs:
   download-artifact:
     runs-on: ubuntu-latest
     name: Download Artifact Job
+    needs: upload-artifact
 
     steps:
       - name: Download Artifact
