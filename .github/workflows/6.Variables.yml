@@ -19,3 +19,19 @@ jobs:
         run: |
           echo "Global Variable: $GLOBAL_VAR"
           echo "Another Global Variable: $ANOTHER_VAR"
+
+  job-with-env:
+    runs-on: ubuntu-latest
+    name: Job with Environment Variables
+    env:
+      MY_JOB_VAR: "This is an environment variable"
+      ANOTHER_JOB_ENV_VAR: "This is another environment variable"
+
+    steps:
+      - name: Print Environment Variable
+
+        run: |
+          echo "Job Environment Variable: $MY_JOB_VAR"
+          echo "Another Job Environment Variable: $ANOTHER_JOB_ENV_VAR"
+          echo "Global Variable: $GLOBAL_VAR"
+          echo "Another Global Variable: $ANOTHER_VAR"
