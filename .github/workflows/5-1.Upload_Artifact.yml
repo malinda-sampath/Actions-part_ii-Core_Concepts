@@ -1,0 +1,26 @@
+name: Upload Artifact Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+    name: Upload Artfact Job
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Create a File
+        run: |
+          echo "This is a sample file." > sample.txt
+          echo "This file will be uploaded as an artifact."
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sample-artifact
+          path: ./sample.txt
