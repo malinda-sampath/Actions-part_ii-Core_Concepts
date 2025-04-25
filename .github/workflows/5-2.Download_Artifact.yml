@@ -1,0 +1,44 @@
+name: Upload & Download Artifact Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+    name: Upload Artfact Job
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Create a File
+        run: |
+          echo "This is a sample file." > sample.txt
+          echo "This file will be uploaded as an artifact."
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sample-artifact
+          path: ./sample.txt
+
+  download-artifact:
+    runs-on: ubuntu-latest
+    name: Download Artifact Job
+
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sample-artifact
+          path: ./downloaded-artifact
+
+      - name: List Downloaded Files
+        run: |
+          echo "Listing downloaded files:"
+          ls -l ./downloaded-artifact
+          echo "Contents of the downloaded file:"
+          cat ./downloaded-artifact/sample.txt
