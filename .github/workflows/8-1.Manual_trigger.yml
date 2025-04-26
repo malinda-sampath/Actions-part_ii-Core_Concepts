@@ -1,0 +1,30 @@
+name: Manual Trigger Example
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Name of the person to greet"
+        required: true
+        default: "World"
+      greeting:
+        description: "Greeting message"
+        required: false
+        default: "Hello"
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    name: Greeting Job
+
+    steps:
+      - name: Say Hello
+        run: |
+          echo "${{ github.event.inputs.greeting }} ${{ github.event.inputs.name }}!"
+          echo "This is Malinda's manual trigger workflow"
+      - name: Show Date and Time
+        run: date
+      - name: Show Disk Space
+        run: df -h
+      - name: Show Memory info
+        run: free -h
