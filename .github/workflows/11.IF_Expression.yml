@@ -1,0 +1,44 @@
+name: IF expression example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  my-job:
+    name: Conditional Job
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Run on Push
+        run: |
+          echo "This job runs only on push events."
+
+  my-other-job:
+    name: Conditional Job 2
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Run on Pull Request
+        run: |
+          echo "This job runs only on pull request events."
+
+  my-third-job:
+    name: Conditional Job 3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Run on All Events
+        if: ${{ always() }}
+        #always() is a built-in function that always evaluates to true
+        run: |
+          echo "This job runs on all events."
