@@ -1,0 +1,30 @@
+name: Access Context from Multiple Jobs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      greeting: ${{ steps.generate_greeting.outputs.greeting }}
+      username: ${{ steps.generate_username.outputs.username }}
+    steps:
+      - name: Step 1 - Generate Greeting
+        id: generate_greeting
+        run: echo "greeting=Hello" >> $GITHUB_OUTPUT
+
+      - name: Step 2 - Generate Username
+        id: generate_username
+        run: echo "username=world_user" >> $GITHUB_OUTPUT
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: Step 3 - Use outputs from Job 1
+        run: |
+          echo "Greeting: ${{ needs.job1.outputs.greeting }}"
+          echo "Username: ${{ needs.job1.outputs.username }}"
